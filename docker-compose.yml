@@ -1,0 +1,26 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+    restart: always
+    command: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+    ports:
+      - ${POSTGRES_PASSWORD:-5432}:5432
+  django_permition:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src:cached
+    depends_on:
+      - db
+volumes:
+  pgdata:
