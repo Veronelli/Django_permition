@@ -8,8 +8,15 @@ ENV POETRY_VERSION=1.7.1
 ENV POETRY_HOME=/opt/poetry
 ENV PATH="${PATH}:${POETRY_HOME}/bin"
 
+# Establece una variable para la ruta del entorno virtual
+ENV VIRTUAL_ENV=/usr/src/.venv
+
+# Crea el entorno virtual y lo añade al PATH
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 # Instalar dependencias de sistema
-RUN apk add --no-cache curl build-base
+RUN apk add --no-cache curl build-base git
 
 # Instalar Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
