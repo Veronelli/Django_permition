@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-*dqym6x$lxro_9o^a2wbh&l(u%u&u%itcjbr9s_k(fmhp7(_ru
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+AUTH_USER_MODEL = 'user.CustomUser'
 
 # Application definition
 
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app.user',
+    'field_history'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_permition.urls'
+ROOT_URLCONF = 'app.django_permition.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_permition.wsgi.application'
+WSGI_APPLICATION = 'app.django_permition.wsgi.application'
 
 
 # Database

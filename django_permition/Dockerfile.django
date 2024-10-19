@@ -22,7 +22,7 @@ RUN apk add --no-cache curl build-base git
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Establecer el directorio de trabajo
-WORKDIR /usr/src
+WORKDIR /usr/src/
 
 # Copiar archivos de configuración de Poetry primero
 COPY pyproject.toml poetry.lock* ./

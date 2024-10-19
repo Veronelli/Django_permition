@@ -9,6 +9,7 @@ readme = "README.md"
 python = "3.12.*"
 django = "^5.1.2"
 psycopg2-binary = "^2.9.9"
+django-field-history = "^0.8.0"
 
 
 [build-system]
