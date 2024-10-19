@@ -1,0 +1,39 @@
+# Dockerfile
+FROM python:3.12.7-alpine3.20
+
+# Variables de entorno para optimización y poesía
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV POETRY_VERSION=1.7.1
+ENV POETRY_HOME=/opt/poetry
+ENV PATH="${PATH}:${POETRY_HOME}/bin"
+
+# Establece una variable para la ruta del entorno virtual
+ENV VIRTUAL_ENV=/usr/src/.venv
+
+# Crea el entorno virtual y lo añade al PATH
+RUN python -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Instalar dependencias de sistema
+RUN apk add --no-cache curl build-base git
+
+# Instalar Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Establecer el directorio de trabajo
+WORKDIR /usr/src/
+
+# Copiar archivos de configuración de Poetry primero
+COPY pyproject.toml poetry.lock* ./
+
+# Instalar dependencias sin crear entorno virtual
+RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
+
+# Copiar el resto del código al contenedor
+COPY . .
+
+RUN chmod +x ./run.sh && apk add expect && chmod +x run.sh
+
+# Comando predeterminado para mantener el contenedor en ejecución
+CMD ["sh", "./run.sh"]

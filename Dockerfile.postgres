@@ -1,0 +1,8 @@
+FROM postgres:13.7-alpine
+
+WORKDIR /usr/src
+
+COPY postgres_init.sh .
+RUN apk add expect && chmod +x postgres_init.sh
+
+CMD ["./postgres_init.sh"]
