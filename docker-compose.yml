@@ -30,6 +30,6 @@ services:
       - .:/usr/src:cached
     depends_on:
       - db
-    command: python manage.py runserver
+    command: tail -f /dev/null
 volumes:
   pgdata:
