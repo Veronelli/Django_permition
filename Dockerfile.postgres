@@ -2,7 +2,7 @@ FROM postgres:13.7-alpine
 
 WORKDIR /usr/src
 
-COPY postgres_init.sh .
-RUN apk add expect && chmod +x postgres_init.sh
+COPY postgres_init.exp .
+RUN apk add expect && chmod +x postgres_init.exp
 
-CMD ["./postgres_init.sh"]
+CMD ["expect", "./postgres_init.exp"]

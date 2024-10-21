@@ -33,7 +33,6 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 # Copiar el resto del código al contenedor
 COPY . .
 
-RUN chmod +x ./run.sh && apk add expect && chmod +x run.sh
+RUN chmod +x ./django_init.exp && chmod +x ./entrypoint.sh && apk add expect
 
-# Comando predeterminado para mantener el contenedor en ejecución
-CMD ["sh", "./run.sh"]
+CMD ["sh", "./entrypoint.sh"]

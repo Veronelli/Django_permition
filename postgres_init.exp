@@ -7,9 +7,11 @@ set postgres_password [lindex $env(POSTGRES_PASSWORD) 0]
 set timeout -1
 
 # Ejecutar el comando psql usando la variable de entorno
-spawn psql -h permition-db-1 -U $postgres_user -c "CREATE DATABASE permition;"
+spawn psql -U $postgres_user -c "CREATE DATABASE permition;"
 
 expect "Password for user admin:"
 send "$postgres_password\r"
 
+expect eof
+spawn postgres
 interact
